@@ -19,24 +19,27 @@
                     <a href="#page-top"></a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="/search">Search in library</a>
+                    <a class="page-scroll" href="/search">Search</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#categories">Categories</a>
+                    <a class="page-scroll" href="/list">Books list</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#authors">Authors</a>
+                    <a class="page-scroll" href="/categories">Categories</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#googlebook">Google Book</a>
+                    <a class="page-scroll" href=/authors">Authors</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="/googlebook">Google Book</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="page-scroll" href="#about">About</a>
+                    <a class="page-scroll" href="/about">About</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#contact">Contact</a>
+                    <a class="page-scroll" href="/contact">Contact</a>
                 </li>
             </ul>
         </div>

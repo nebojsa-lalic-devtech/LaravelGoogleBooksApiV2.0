@@ -21,3 +21,9 @@ Route::get('/search', function () {
 });
 Route::get('searchBookGoogle', 'BooksController@getBookFromGoogleApi');
 Route::get('searchBookDevtech', 'BooksController@getBookFromDatabase');
+
+
+Route::get('/list', function () {
+    return view('layouts.list');
+});
+Route::get('getAllBooks', 'BooksController@getAllBooks');

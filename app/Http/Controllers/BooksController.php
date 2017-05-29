@@ -62,4 +62,18 @@ class BooksController extends Controller
             return view('layouts.search')->with(compact('errorMessage'));
         }
     }
+
+    /**
+     * @return $this
+     */
+    public function getAllBooks()
+    {
+        try {
+            $books = Book::all();
+            return view('layouts.list')->with(compact('books'));
+        } catch (\Exception $ex) {
+            $errorMessage = '***  Sorry, Library is empty  ***';
+            return view('layouts.list')->with(compact('errorMessage'));
+        }
+    }
 }
