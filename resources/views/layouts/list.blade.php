@@ -27,7 +27,7 @@
                 <tbody>
                 @foreach ($books as $book)
                     <tr id="table_book_info" class="text-left">
-                    <th id="google_isbn" scope="row">{{ $book['id'] }}</th>
+                    <th id="google_isbn" scope="row">{{ $book['isbn'] }}</th>
                     <td><img src={{ $book['image_url'] }} id="google_thumbnail" WIDTH="40%"></td>
                     <td id="google_title">{{ $book['title'] }}</td>
                     <td id="google_author">{{ $book['author'] }}</td>
