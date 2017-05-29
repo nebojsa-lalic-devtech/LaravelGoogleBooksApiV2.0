@@ -46,5 +46,8 @@
             </tbody>
         </table>
         @endif
+        @if(isset($errorMessage))
+            <h3><div id="info_library">{{ $errorMessage }}</div></h3>
+        @endif
     </div>
 @stop
