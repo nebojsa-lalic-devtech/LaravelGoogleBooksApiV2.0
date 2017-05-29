@@ -11,7 +11,7 @@ namespace App\Http\Controllers;
 use App\Book;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BooksController extends Controller
@@ -20,11 +20,11 @@ class BooksController extends Controller
 
     # GET ONE BOOK BY ID
     /**
-     * @return \Illuminate\Http\JsonResponse|string
+     * @return string
      */
     public function getBookFromDatabase()
     {
-        $isbn = $_GET['search']; // valid isbn numbers: 9781491924440, 9781785283291, 9789332517868
+        $isbn = $_GET['isbn']; // valid isbn numbers: 9781491924440, 9781785283291, 9789332517868
         try {
             $book = Book::where('isbn', $isbn)->firstOrFail();
             if (response()->json($book)) {
@@ -38,13 +38,16 @@ class BooksController extends Controller
     }
 
     /**
-     * @return array|string
-     * @throws NotFoundHttpException
+     * @param Request $request
+     * @return $this|string
      */
-    public function getBookFromGoogleApi()
+    public function getBookFromGoogleApi(Request $request)
     {
+        $this->validate($request, [
+            'isbn' => 'numeric|digits:13'
+        ]);
         try {
-            $isbn = $_GET['search'];
+            $isbn = $_GET['isbn'];
             $this->client = new Client();
             $body = $this->client->get('https://www.googleapis.com/books/v1/volumes?q=' . $isbn)->getBody();
             $response = json_decode($body);
@@ -57,8 +60,7 @@ class BooksController extends Controller
                 throw new NotFoundHttpException();
             }
         } catch (\Exception $ex) {
-            $errorMessage = '***  Sorry, book with ' . $isbn = $_GET['search'] . ' not exist in GoogleBook Library  ***';
-            return view('layouts.search')->with(compact('errorMessage'));
+            return '***  Sorry, book with ' . $isbn = $_GET['isbn'] . ' not exist in GoogleBook Library  ***';
         }
     }
 }

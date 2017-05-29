@@ -11,10 +11,19 @@
         <form method="get" id="bookSearchForm" class="search-form" action="{{ action('BooksController@getBookFromGoogleApi') }}">
             <div class="form-group has-feedback">
                 <label for="search" class="sr-only">Search</label>
-                <input type="text" class="form-control" name="search" id="isbn" placeholder="search">
+                <input type="text" class="form-control" name="isbn" id="isbn" placeholder="search">
                 <span class="glyphicon glyphicon-search form-control-feedback"></span>
             </div>
         </form>
+        @if(count($errors) > 0)
+            <div class="alert alert-danger" id="info_library">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         @if(isset($response))
         <table class="table table-striped">
             <thead>
@@ -36,9 +45,6 @@
             </tr>
             </tbody>
         </table>
-        @endif
-        @if(isset($errorMessage))
-            <h3><div id="info_library">{{ $errorMessage }}</div></h3>
         @endif
     </div>
 @stop
