@@ -27,7 +27,7 @@ class BooksController extends Controller
         $isbn = $_GET['isbn']; // valid isbn numbers: 9781491924440, 9781785283291, 9789332517868
         try {
             $book = Book::where('isbn', $isbn)->firstOrFail();
-            if (response()->$book) {
+            if (response()->json($book)) {
                 $bookStatus = 'available';
                 return $bookStatus;
             }
@@ -39,7 +39,7 @@ class BooksController extends Controller
 
     /**
      * @param Request $request
-     * @return $this|string
+     * @return $this
      */
     public function getBookFromGoogleApi(Request $request)
     {
@@ -53,9 +53,7 @@ class BooksController extends Controller
             $response = json_decode($body);
             if ($response->totalItems != 0) {
                 $response->bookDevTechStatus = $this->getBookFromDatabase();
-
                 return view('layouts.search')->with(compact('response'));
-
             } else {
                 throw new NotFoundHttpException();
             }
