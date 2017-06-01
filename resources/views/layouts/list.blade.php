@@ -31,7 +31,7 @@
                     <td><img src={{ $book['image_url'] }} id="google_thumbnail" WIDTH="40%"></td>
                     <td id="google_title">{{ $book['title'] }}</td>
                     <td id="google_author">{{ $book['author'] }}</td>
-                    <td id="devtech_book_status">Available</td>
+                    <td id="devtech_book_status" class="text-success"><b>Available</b></td>
                 </tr>
                 @endforeach
                 </tbody>

@@ -39,15 +39,19 @@
             <tr id="table_book_info" class="text-left">
                 <th id="google_isbn" scope="row">{{ $response->items[0]->volumeInfo->industryIdentifiers[0]->identifier }}</th>
                 <td><img src={{ $response->items[0]->volumeInfo->imageLinks->thumbnail }} id="google_thumbnail" WIDTH="40%"></td>
-                <td id="google_title">{{ $response->items[0]->volumeInfo->title }}</td>
+                <td id="google_title"><a href={{ $response->items[0]->volumeInfo->infoLink }}>{{ $response->items[0]->volumeInfo->title }}</a></td>
                 <td id="google_author">{{ $response->items[0]->volumeInfo->authors[0] }}</td>
-                <td id="devtech_book_status">{{ $response->bookDevTechStatus }}</td>
+                @if($response->bookDevTechStatus == 'available')
+                    <td id="devtech_book_status" class="text-success"><b>{{ $response->bookDevTechStatus }}</b></td>
+                @else
+                    <td id="devtech_book_status" class="text-danger"><b>{{ $response->bookDevTechStatus }}</b></td>
+                @endif
             </tr>
             </tbody>
         </table>
         @endif
         @if(isset($errorMessage))
-            <h3><div id="info_library">{{ $errorMessage }}</div></h3>
+            <h3><div id="info_library" class="text-danger">{{ $errorMessage }}</div></h3>
         @endif
     </div>
 @stop

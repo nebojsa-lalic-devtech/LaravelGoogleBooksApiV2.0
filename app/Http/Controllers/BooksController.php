@@ -26,17 +26,18 @@ class BooksController extends Controller
     {
         $isbn = $_GET['isbn']; // valid isbn numbers: 9781491924440, 9781785283291, 9789332517868
         try {
-            $book = Book::where('isbn', $isbn)->firstOrFail();
-            if (response()->json($book)) {
+            $book = Book::where('isbn', $isbn)->where('available', 1)->firstOrFail();
+            if ($book) {
                 $bookStatus = 'available';
                 return $bookStatus;
             }
-//            return response()->json($book);
         } catch (ModelNotFoundException $ex) {
-            return 'Sorry, this book is not in DevTech library! :(';
+            $bookStatus = 'not available';
+            return $bookStatus;
         }
     }
 
+    #GET BOOK FROM GOOGLE
     /**
      * @param Request $request
      * @return $this
@@ -58,11 +59,12 @@ class BooksController extends Controller
                 throw new NotFoundHttpException();
             }
         } catch (\Exception $ex) {
-            $errorMessage = '***  Sorry, book with ' . $isbn = $_GET['isbn'] . ' not exist in GoogleBook Library  ***';
+            $errorMessage = '***  Sorry, book with ISBN "' . $isbn = $_GET['isbn'] . '" not exist in GoogleBook Library  ***';
             return view('layouts.search')->with(compact('errorMessage'));
         }
     }
 
+    #GET ALL BOOKS FROM LIBRARY
     /**
      * @return $this
      */

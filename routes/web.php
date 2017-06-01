@@ -19,11 +19,9 @@ Route::get('/', function () {
 Route::get('/search', function () {
     return view('layouts.search');
 });
-Route::get('searchBookGoogle', 'BooksController@getBookFromGoogleApi');
-Route::get('searchBookDevtech', 'BooksController@getBookFromDatabase');
-
-
 Route::get('/list', function () {
     return view('layouts.list');
 });
+Route::get('searchBookGoogle', 'BooksController@getBookFromGoogleApi');
+Route::get('searchBookDevtech', 'BooksController@getBookFromDatabase');
 Route::get('getAllBooks', 'BooksController@getAllBooks');

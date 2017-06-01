@@ -24,15 +24,6 @@
                 <li>
                     <a class="page-scroll" href="/list">Books list</a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="/categories">Categories</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href=/authors">Authors</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="/googlebook">Google Book</a>
-                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
