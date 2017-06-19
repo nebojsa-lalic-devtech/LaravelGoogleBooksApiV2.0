@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nebojsa.lalic
- * Date: 26-May-17
- * Time: 10:47 AM
- */
 
 namespace App\Http\Controllers;
 

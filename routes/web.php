@@ -26,7 +26,7 @@ Route::get('/list', function () {
     return view('layouts.list');
 });
 Route::post('/sendmail', function (Request $request, Mailer $mailer) {
-    $mailer->to($request->input('mail'))->send(new Mail($request->input('title'), $request->input('subject'), $request->input('link')));
+    $mailer->to($request->input('mail'))->send(new Mail($request->input('mailMessage'), $request->input('subject'), $request->input('link')));
     return redirect()->back();
 })->name('sendmail');
 Route::get('searchBookGoogle', 'BooksController@getBookFromGoogleApi');

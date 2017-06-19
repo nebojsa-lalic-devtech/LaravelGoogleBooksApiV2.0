@@ -5,7 +5,7 @@
     <title>{{ $subject }}</title>
 </head>
 <body>
-<p>{{ $title }}</p>
+<p>{{ $mailMessage }}</p>
 <p>{{ $link }}</p>
 </body>
 </html>
