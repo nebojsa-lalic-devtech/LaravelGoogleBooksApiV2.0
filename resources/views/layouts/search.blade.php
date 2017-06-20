@@ -75,14 +75,16 @@
                     <div class="form-group">
                         <label class="sr-only" for="contact-message">Message</label>
                         <textarea name="mailMessage" placeholder="Message..." class="contact-message form-control"
-                          id="contact-message"></textarea>
+                                  id="contact-message"></textarea>
                     </div>
                     <div class="form-group" style="visibility: hidden">
                         <label class="sr-only" for="link"></label>
-                        <input value="{{ $response->items[0]->volumeInfo->infoLink }}" name="link" class="contact-message form-control"
-                          id="link"/>
+                        <input value="{{ $response->items[0]->volumeInfo->infoLink }}" name="link"
+                               class="contact-message form-control"
+                               id="link"/>
                     </div>
-                    <input type="submit" class="btn btn-success btn-lg" value="Send Mail!" onclick="showProgressBar();"/>
+                    <input type="submit" class="btn btn-success btn-lg" value="Send Mail!"
+                           onclick="showProgressBar();"/>
                     {{ csrf_field() }}
                 </form>
             </div>

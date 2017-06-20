@@ -27,18 +27,21 @@
                 <tbody>
                 @foreach ($books as $book)
                     <tr id="table_book_info" class="text-left">
-                    <th id="google_isbn" scope="row">{{ $book['isbn'] }}</th>
-                    <td><img src={{ $book['image_url'] }} id="google_thumbnail" WIDTH="40%"></td>
-                    <td id="google_title">{{ $book['title'] }}</td>
-                    <td id="google_author">{{ $book['author'] }}</td>
-                    <td id="devtech_book_status" class="text-success"><b>Available</b></td>
-                </tr>
+                        <th id="google_isbn" scope="row">{{ $book['isbn'] }}</th>
+                        <td><img src={{ $book['image_url'] }} id="google_thumbnail" WIDTH="40%"></td>
+                        <td id="google_title">{{ $book['title'] }}</td>
+                        <td id="google_author">{{ $book['author'] }}</td>
+                        <td id="devtech_book_status" class="text-success"><b>Available</b></td>
+                    </tr>
                 @endforeach
                 </tbody>
             </table>
         @endif
+        {{ $books->links() }}
         @if(isset($errorMessage))
-            <h3><div id="info_library">{{ $errorMessage }}</div></h3>
+            <h3>
+                <div id="info_library">{{ $errorMessage }}</div>
+            </h3>
         @endif
     </div>
 @stop

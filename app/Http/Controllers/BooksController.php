@@ -67,7 +67,7 @@ class BooksController extends Controller
     public function getAllBooks()
     {
         try {
-            $books = Book::all();
+            $books = Book::paginate(2);
             return view('layouts.list')->with(compact('books'));
         } catch (\Exception $ex) {
             $errorMessage = '***  Sorry, Library is empty  ***';
@@ -75,6 +75,7 @@ class BooksController extends Controller
         }
     }
 
+    #SEND NEW MAIL
     /**
      * @param Request $request
      * @param Mailer $mailer

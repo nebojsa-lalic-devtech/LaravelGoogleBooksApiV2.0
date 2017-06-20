@@ -17,8 +17,9 @@ class Mail extends Mailable
 
     /**
      * Create a new message instance.
-     *
-     * @return void
+     * @param $mailMessage
+     * @param $subject
+     * @param $link
      */
     public function __construct($mailMessage, $subject, $link)
     {

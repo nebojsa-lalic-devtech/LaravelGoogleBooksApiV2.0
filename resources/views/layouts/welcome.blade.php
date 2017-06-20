@@ -4,6 +4,6 @@
 
 @section('content')
 
-    <h1 >Welcome to DevTech Library</h1>
+    <h1>Welcome to DevTech Library</h1>
 
 @stop
