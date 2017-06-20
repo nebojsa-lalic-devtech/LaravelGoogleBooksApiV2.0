@@ -28,10 +28,7 @@ Route::get('/list', function () {
 Route::get('/about', function () {
     return view('layouts/about');
 });
-Route::post('/sendmail', function (Request $request, Mailer $mailer) {
-    $mailer->to($request->input('mail'))->send(new Mail($request->input('mailMessage'), $request->input('subject'), $request->input('link')));
-    return redirect()->back();
-})->name('sendmail');
+Route::post('/sendmail', 'BooksController@sendMail')->name('sendmail');
 Route::get('searchBookGoogle', 'BooksController@getBookFromGoogleApi');
 Route::get('searchBookDevtech', 'BooksController@getBookFromDatabase');
 Route::get('getAllBooks', 'BooksController@getAllBooks');

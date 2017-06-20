@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\Mail\Mail;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Mailer;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BooksController extends Controller
@@ -71,5 +73,16 @@ class BooksController extends Controller
             $errorMessage = '***  Sorry, Library is empty  ***';
             return view('layouts.list')->with(compact('errorMessage'));
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param Mailer $mailer
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function sendMail(Request $request, Mailer $mailer)
+    {
+        $mailer->to($request->input('mail'))->send(new Mail($request->input('mailMessage'), $request->input('subject'), $request->input('link')));
+        return redirect()->back();
     }
 }
