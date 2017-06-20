@@ -4,15 +4,7 @@
 
 @section('content')
 
-    <div class="col-md-6 col-md-offset-3">
-        <h4>Click button to see results:</h4>
-    </div>
     <div class="col-md-10 col-md-offset-1">
-        <form method="get" id="getAllForm" class="search-form" action="{{ action('BooksController@getAllBooks') }}">
-            <div class="form-group has-feedback">
-                <button type="submit" class="btn btn-success btn-lg">Show all Books in DevTech Library</button>
-            </div>
-        </form>
         @if(isset($books))
             <table class="table table-striped">
                 <thead>
@@ -37,6 +29,17 @@
                 </tbody>
             </table>
             {{ $books->links() }}
+        @else
+        <div id="showBooksElements">
+            <div class="col-md-6 col-md-offset-3">
+                <h4>Click button to see results:</h4>
+            </div>
+            <form method="get" id="getAllForm" class="search-form" action="{{ action('BooksController@getAllBooks') }}">
+                <div class="form-group has-feedback">
+                    <input type="submit" class="btn btn-success btn-lg" value="Show all Books in DevTech Library"/>
+                </div>
+            </form>
+        </div>
         @endif
         @if(isset($errorMessage))
             <h3>
@@ -44,4 +47,5 @@
             </h3>
         @endif
     </div>
+    <script src="{{ URL::asset('js/booksList.js') }}"></script>
 @stop
