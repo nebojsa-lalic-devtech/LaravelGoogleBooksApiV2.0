@@ -36,8 +36,8 @@
                 @endforeach
                 </tbody>
             </table>
+            {{ $books->links() }}
         @endif
-        {{ $books->links() }}
         @if(isset($errorMessage))
             <h3>
                 <div id="info_library">{{ $errorMessage }}</div>
