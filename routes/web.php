@@ -25,6 +25,9 @@ Route::get('/search', function () {
 Route::get('/list', function () {
     return view('layouts.list');
 });
+Route::get('/about', function () {
+    return view('layouts/about');
+});
 Route::post('/sendmail', function (Request $request, Mailer $mailer) {
     $mailer->to($request->input('mail'))->send(new Mail($request->input('mailMessage'), $request->input('subject'), $request->input('link')));
     return redirect()->back();

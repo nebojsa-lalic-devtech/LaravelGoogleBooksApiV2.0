@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('master')
 
 @section('title', ' - Search')
 
@@ -74,7 +74,7 @@
                     </div>
                     <div class="form-group">
                         <label class="sr-only" for="contact-message">Message</label>
-                <textarea name="mailMessage" placeholder="Message..." class="contact-message form-control"
+                        <textarea name="mailMessage" placeholder="Message..." class="contact-message form-control"
                           id="contact-message"></textarea>
                     </div>
                     <div class="form-group" style="visibility: hidden">
