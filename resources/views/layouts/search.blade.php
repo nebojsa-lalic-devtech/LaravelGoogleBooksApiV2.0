@@ -41,7 +41,13 @@
                 <tbody>
                 <tr id="table_book_info" class="text-left">
                     <th id="google_isbn"
-                        scope="row">{{ $response->items[0]->volumeInfo->industryIdentifiers[1]->identifier }}</th>
+                        scope="row">
+                        @if(strlen($response->items[0]->volumeInfo->industryIdentifiers[0]->identifier) == 13)
+                            {{ $response->items[0]->volumeInfo->industryIdentifiers[0]->identifier }}
+                        @else
+                            {{ $response->items[0]->volumeInfo->industryIdentifiers[1]->identifier }}
+                        @endif
+                    </th>
                     <td><img src={{ $response->items[0]->volumeInfo->imageLinks->thumbnail }} id="google_thumbnail"
                              WIDTH="40%"></td>
                     <td id="google_title"><a
@@ -54,26 +60,33 @@
                         <td id="devtech_book_status" class="text-danger"><b>{{ $response->bookDevTechStatus }}</b></td>
                     @endif
                     <td>
-                        <button id="send_book" onclick="showOrHideMailInput()">
+                        <button id="send_book" onclick="showOrHideMailInput()" style="display: inline-block">
                             <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> email book
                         </button>
                     </td>
                     <td>
-                    @if($response->bookDevTechStatus == 'not available')
-                    <div>
-                    <form method="get" action="{{ action('BooksController@addBook') }}">
-                        <button type="submit" id="add_book_to_library" onclick="showMessageForAddedBook()">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> add book
-                        </button>
-                        <input type="text" style="visibility: hidden" name="current_isbn" value="{{ $response->items[0]->volumeInfo->industryIdentifiers[1]->identifier }}"/>
-                        {{ csrf_field() }}
-                    </form>
-                    </div>
-                    @else
-                        <div>
-                            <button type="button" disabled class="text-success">already added</button>
-                        </div>
-                    @endif
+                        @if($response->bookDevTechStatus == 'not available')
+                            <div>
+                                <form method="get" action="{{ action('BooksController@addBook') }}">
+                                    <button type="submit" id="add_book_to_library" onclick="showMessageForAddedBook()"
+                                            style="display: inline">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> add book
+                                    </button>
+                                    @if(strlen($response->items[0]->volumeInfo->industryIdentifiers[0]->identifier) == 13)
+                                        <input type="text" style="visibility: hidden" name="current_isbn"
+                                               value="{{ $response->items[0]->volumeInfo->industryIdentifiers[0]->identifier }}"/>
+                                    @else
+                                        <input type="text" style="visibility: hidden" name="current_isbn"
+                                               value="{{ $response->items[0]->volumeInfo->industryIdentifiers[1]->identifier }}"/>
+                                    @endif
+                                    {{ csrf_field() }}
+                                </form>
+                            </div>
+                        @else
+                            <div>
+                                <button type="button" disabled class="text-success">already added</button>
+                            </div>
+                        @endif
                     </td>
                 </tr>
                 </tbody>
