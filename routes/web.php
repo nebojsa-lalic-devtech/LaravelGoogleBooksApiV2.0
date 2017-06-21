@@ -32,3 +32,4 @@ Route::post('/sendmail', 'BooksController@sendMail')->name('sendmail');
 Route::get('searchBookGoogle', 'BooksController@getBookFromGoogleApi');
 Route::get('searchBookDevtech', 'BooksController@getBookFromDatabase');
 Route::get('getAllBooks', 'BooksController@getAllBooks');
+Route::get('addBook', 'BooksController@addBook');

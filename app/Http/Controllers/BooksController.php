@@ -67,13 +67,36 @@ class BooksController extends Controller
     public function getAllBooks()
     {
         try {
-            $books = Book::paginate(2);
+            $books = Book::paginate(3);
             return view('layouts.list')->with(compact('books'));
         } catch (\Exception $ex) {
             $errorMessage = '***  Sorry, Library is empty  ***';
             return view('layouts.list')->with(compact('errorMessage'));
         }
     }
+
+    // NEED REFACTORING -->>> ****************************************
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addBook(Request $request)
+    {
+        $isbn = $_GET['current_isbn'];
+        $this->client = new Client();
+        $body = $this->client->get('https://www.googleapis.com/books/v1/volumes?q=' . $isbn)->getBody();
+        $response = json_decode($body);
+        $book = new Book();
+        $book->isbn = $response->items[0]->volumeInfo->industryIdentifiers[1]->identifier;
+        $book->image_url = $response->items[0]->volumeInfo->imageLinks->thumbnail;
+        $book->title = $response->items[0]->volumeInfo->title;
+        $book->author = $response->items[0]->volumeInfo->authors[0];
+        $book->available = 1;
+        $book->save();
+
+        return redirect()->back();
+    }
+    // <<<-- **********************************************************
 
     #SEND NEW MAIL
     /**

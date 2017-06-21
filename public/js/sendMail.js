@@ -1,6 +1,10 @@
-function showMailInput() {
+function showOrHideMailInput() {
     var sendBookDiv = document.getElementById('send_book_div');
-    sendBookDiv.style.display = 'block';
+    if (sendBookDiv.style.display === 'none') {
+        sendBookDiv.style.display = 'block';
+    } else {
+        sendBookDiv.style.display = 'none';
+    }
 }
 function showSuccessMessage() {
     setTimeout(function () {
