@@ -45,9 +45,7 @@ class BooksController extends Controller
         ]);
         try {
             $isbn = $_GET['isbn'];
-            $this->client = new Client();
-            $body = $this->client->get('https://www.googleapis.com/books/v1/volumes?q=' . $isbn)->getBody();
-            $response = json_decode($body);
+            $response = $this->makeGuzzleRequest($isbn);
             if ($response->totalItems != 0) {
                 $response->bookDevTechStatus = $this->getBookFromDatabase();
                 return view('layouts.search')->with(compact('response'));
@@ -75,7 +73,6 @@ class BooksController extends Controller
         }
     }
 
-    // NEED REFACTORING -->>> ****************************************
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
@@ -83,9 +80,7 @@ class BooksController extends Controller
     public function addBook(Request $request)
     {
         $isbn = $_GET['current_isbn'];
-        $this->client = new Client();
-        $body = $this->client->get('https://www.googleapis.com/books/v1/volumes?q=' . $isbn)->getBody();
-        $response = json_decode($body);
+        $response = $this->makeGuzzleRequest($isbn);
         $book = new Book();
         $book->isbn = $isbn;
         $book->image_url = $response->items[0]->volumeInfo->imageLinks->thumbnail;
@@ -93,10 +88,8 @@ class BooksController extends Controller
         $book->author = $response->items[0]->volumeInfo->authors[0];
         $book->available = 1;
         $book->save();
-
         return redirect()->back();
     }
-    // <<<-- **********************************************************
 
     #SEND NEW MAIL
     /**
@@ -111,14 +104,24 @@ class BooksController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteBook(Request $request)
+    public function deleteBook()
     {
         $isbn = $_GET['delete_by_this_isbn'];
         $book = Book::where('isbn', $isbn);
         $book->delete();
         return redirect()->back();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function makeGuzzleRequest($isbn)
+    {
+        $this->client = new Client();
+        $body = $this->client->get('https://www.googleapis.com/books/v1/volumes?q=' . $isbn)->getBody();
+        $response = json_decode($body);
+        return $response;
     }
 }
