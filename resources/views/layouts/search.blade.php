@@ -90,6 +90,7 @@
                         @endif
                     </td>
                     <td class="col-md-2">
+                        @if($response->bookDevTechStatus == 'available')
                         <form method="get" action="{{ action('BooksController@deleteBook') }}">
                             <button type="submit" id="add_book_to_library"  style="display: inline" onclick="showMessageForDeletedBook()">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> delete book
@@ -101,6 +102,8 @@
                                 <input type="text" style="visibility: hidden" name="delete_by_this_isbn"
                                        value="{{ $response->items[0]->volumeInfo->industryIdentifiers[1]->identifier }}"/>
                             @endif
+                        @else
+                        @endif
                             {{ csrf_field() }}
                         </form>
                     </td>
