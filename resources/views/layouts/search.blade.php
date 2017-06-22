@@ -111,6 +111,7 @@
                 </tbody>
             </table>
             <div id="send_book_div" class="col-md-6 col-md-offset-3" style="display:none">
+                <h4>Please, populate all fields before sending email:</h4>
                 <form action="{{ route('sendmail') }}" method="post">
                     <div class="form-group">
                         <label class="sr-only" for="contact-email">Email</label>
