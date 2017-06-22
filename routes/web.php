@@ -33,3 +33,4 @@ Route::get('searchBookGoogle', 'BooksController@getBookFromGoogleApi');
 Route::get('searchBookDevtech', 'BooksController@getBookFromDatabase');
 Route::get('getAllBooks', 'BooksController@getAllBooks');
 Route::get('addBook', 'BooksController@addBook');
+Route::get('deleteBook', 'BooksController@deleteBook');

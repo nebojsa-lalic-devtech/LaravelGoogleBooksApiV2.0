@@ -36,6 +36,7 @@
                     <th>DevTech Library</th>
                     <th>Email book to someone</th>
                     <th>Add to Library</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -87,6 +88,21 @@
                                 <button type="button" disabled class="text-success">already added</button>
                             </div>
                         @endif
+                    </td>
+                    <td>
+                        <form method="get" action="{{ action('BooksController@deleteBook') }}">
+                            <button type="submit" id="add_book_to_library"  style="display: inline">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> delete book
+                            </button>
+                            @if(strlen($response->items[0]->volumeInfo->industryIdentifiers[0]->identifier) == 13)
+                                <input type="text" style="visibility: hidden" name="delete_by_this_isbn"
+                                       value="{{ $response->items[0]->volumeInfo->industryIdentifiers[0]->identifier }}"/>
+                            @else
+                                <input type="text" style="visibility: hidden" name="delete_by_this_isbn"
+                                       value="{{ $response->items[0]->volumeInfo->industryIdentifiers[1]->identifier }}"/>
+                            @endif
+                            {{ csrf_field() }}
+                        </form>
                     </td>
                 </tr>
                 </tbody>

@@ -87,7 +87,7 @@ class BooksController extends Controller
         $body = $this->client->get('https://www.googleapis.com/books/v1/volumes?q=' . $isbn)->getBody();
         $response = json_decode($body);
         $book = new Book();
-        $book->isbn = $response->items[0]->volumeInfo->industryIdentifiers[1]->identifier;
+        $book->isbn = $isbn;
         $book->image_url = $response->items[0]->volumeInfo->imageLinks->thumbnail;
         $book->title = $response->items[0]->volumeInfo->title;
         $book->author = $response->items[0]->volumeInfo->authors[0];
@@ -107,6 +107,18 @@ class BooksController extends Controller
     public function sendMail(Request $request, Mailer $mailer)
     {
         $mailer->to($request->input('mail'))->send(new Mail($request->input('mailMessage'), $request->input('subject'), $request->input('link')));
+        return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteBook(Request $request)
+    {
+        $isbn = $_GET['delete_by_this_isbn'];
+        $book = Book::where('isbn', $isbn);
+        $book->delete();
         return redirect()->back();
     }
 }
