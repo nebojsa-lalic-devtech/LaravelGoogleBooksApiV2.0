@@ -49,9 +49,9 @@
                             {{ $response->items[0]->volumeInfo->industryIdentifiers[1]->identifier }}
                         @endif
                     </th>
-                    <td><img src={{ $response->items[0]->volumeInfo->imageLinks->thumbnail }} id="google_thumbnail"
+                    <td class="col-md-2"><img src={{ $response->items[0]->volumeInfo->imageLinks->thumbnail }} id="google_thumbnail"
                              WIDTH="40%"></td>
-                    <td id="google_title"><a
+                    <td class="col-md-2" id="google_title"><a
                                 href={{ $response->items[0]->volumeInfo->infoLink }}>{{ $response->items[0]->volumeInfo->title }}</a>
                     </td>
                     <td id="google_author">{{ $response->items[0]->volumeInfo->authors[0] }}</td>
@@ -60,12 +60,12 @@
                     @else
                         <td id="devtech_book_status" class="text-danger"><b>{{ $response->bookDevTechStatus }}</b></td>
                     @endif
-                    <td>
+                    <td class="col-md-2">
                         <button id="send_book" onclick="showOrHideMailInput()" style="display: inline-block">
                             <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> email book
                         </button>
                     </td>
-                    <td>
+                    <td class="col-md-2">
                         @if($response->bookDevTechStatus == 'not available')
                             <div>
                                 <form method="get" action="{{ action('BooksController@addBook') }}">
@@ -89,9 +89,9 @@
                             </div>
                         @endif
                     </td>
-                    <td>
+                    <td class="col-md-2">
                         <form method="get" action="{{ action('BooksController@deleteBook') }}">
-                            <button type="submit" id="add_book_to_library"  style="display: inline">
+                            <button type="submit" id="add_book_to_library"  style="display: inline" onclick="showMessageForDeletedBook()">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> delete book
                             </button>
                             @if(strlen($response->items[0]->volumeInfo->industryIdentifiers[0]->identifier) == 13)
@@ -146,6 +146,8 @@
             <div style="display:none" class="alert alert-success" role="alert" id="successfully_added_book">Well done!
                 You successfully add new book to Library.
             </div>
+            <div style="display:none" class="alert alert-danger" role="alert" id="successfully_deleted_book">You successfully deleted a book from Library.
+            </div>
         @endif
         @if(isset($errorMessage))
             <h3>
@@ -155,4 +157,5 @@
     </div><br>
     <script src="{{ URL::asset('js/sendMail.js') }}"></script>
     <script src="{{ URL::asset('js/addBook.js') }}"></script>
+    <script src="{{ URL::asset('js/deleteBook.js') }}"></script>
 @stop
